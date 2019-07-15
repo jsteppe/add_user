@@ -1,10 +1,15 @@
 #!/bin/bash
 # Adding OpenVPN user to the system and generate a certificate
+# Check if the argument has been passed
+if [ -z "$*" ]; then
+        echo "Please, specify a single-word username"
+        exit 0
+fi
 # Adding user
 echo "Adding user..."
 echo ""
 # GLOBAL VARS
-#read -p "Provide a username: " name
+OVPN_FOLDER= # Add a path for the openvpn installation folder
 # CHECK AVAILABILITY
 index=$(grep $1 $OVPN_FOLDER/openvpn-ca/keys/index.txt)
 avail=$(grep $1 /etc/passwd)
