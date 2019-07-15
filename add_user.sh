@@ -13,7 +13,6 @@ OVPN_FOLDER= # Add a path for the openvpn installation folder
 # CHECK AVAILABILITY
 index=$(grep $1 $OVPN_FOLDER/openvpn-ca/keys/index.txt)
 avail=$(grep $1 /etc/passwd)
-OVPN_FOLDER=/home/yusifg
 if [ -z  $avail ] or [ -z $index ]; then
         adduser $1
         echo ""
