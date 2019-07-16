@@ -1,7 +1,7 @@
 #!/bin/bash
 # Adding OpenVPN user to the system and generate a certificate
 # Check if the argument has been passed
-if [ -z "$*" ]; then
+if [ $# -ne 1 ]; then
         echo "Please, specify a single-word username"
         exit 0
 fi
