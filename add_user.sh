@@ -14,7 +14,7 @@ OVPN_FOLDER= # Add a path for the openvpn installation folder
 index=$(grep $1 $OVPN_FOLDER/openvpn-ca/keys/index.txt)
 avail=$(grep $1 /etc/passwd)
 # Check if the vars return zero
-if [ -z  $avail ] or [ -z $index ]; then
+if [[ -z  $avail or -z $index ]]; then
         adduser $1
         echo ""
         echo "User Created!"
@@ -26,7 +26,7 @@ if [ -z  $avail ] or [ -z $index ]; then
         cp $OVPN_FOLDER/client-configs/files/$1.ovpn $OVPN_FOLDER/
         exit 0
 # If the user is already in the system script prompts you to delete it
-elif [ -n $avail ] && [ -n $avail ];then
+elif [[ -n $avail && -n $avail ]];then
         echo "User with this name already exists!"
         read -p "Do you really want to replace an existing user? [y/n]" answer
         case $answer in
