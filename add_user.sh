@@ -29,12 +29,13 @@ if [ -z  $avail ] or [ -z $index ]; then
 elif [ -n $avail ] && [ -n $avail ];then
         echo "User with this name already exists!"
         read -p "Do you really want to replace an existing user? [y/n]" answer
-        if [ $answer == y ];then # Thinking about replacing it with "case"
-                userdel -r $1
-                rm -f $OVPN_FOLDER/openvpn-ca/keys/$1.*
-                sed -i "/$1/d" $OVPN_FOLDER/openvpn-ca/keys/index.txt
-                echo "User has been deleted from database!"
-        else
-                exit 0
-        fi
+        case $answer in
+                y | Y | "yes" | "YES" | "Yes") userdel -r $1
+                   rm -f $OVPN_FOLDER/openvpn-ca/keys/$1.*
+                   sed -i "/$1/d" $OVPN_FOLDER/openvpn-ca/keys/index.txt
+                   echo "User has been deleted from database!"
+                   exit 0
+                   ;;
+                *) exit 0
+        esac
 fi
