@@ -1,7 +1,7 @@
 #!/bin/bash
 # By Yusif Galabayli
 # GLOBAL VARIABLES
-OVPN_FOLDER=/home/yusifg
+OVPN_FOLDER=<your openvpn installation folder>
 GREEN='\e[32m'
 BOLD='\e[1m'
 RED='\e[91m'
@@ -30,7 +30,6 @@ echo ""
 # CHECK AVAILABILITY
 index=$(grep $1 $OVPN_FOLDER/openvpn-ca/keys/index.txt)
 avail=$(grep $1 /etc/passwd)
-#if [ -z $avail ] && [ -z $index ]; then
 if [[ -z $avail && -z $index ]]; then
         adduser $1
         echo ""
