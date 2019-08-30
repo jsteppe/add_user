@@ -1,5 +1,7 @@
 #!/bin/bash
 # By Yusif Galabayli
+# Note that you have to make the changes to the OpenVPN installation folder
+# where clients-configs and openvpn-ca are. 
 # GLOBAL VARIABLES
 OVPN_FOLDER=<your openvpn installation folder>
 GREEN='\e[32m'
@@ -30,7 +32,8 @@ echo ""
 # CHECK AVAILABILITY
 index=$(grep $1 $OVPN_FOLDER/openvpn-ca/keys/index.txt)
 avail=$(grep $1 /etc/passwd)
-if [[ -z $avail && -z $index ]]; then
+# <-- Functions -->
+useradd() {
         adduser $1
         echo ""
         echo -e "${GREEN}User Created!${DEFAULT}"
@@ -42,15 +45,24 @@ if [[ -z $avail && -z $index ]]; then
         cp $OVPN_FOLDER/client-configs/files/$1.ovpn $OVPN_FOLDER/
         echo -e "${GREEN}You're all done!${DEFAULT}"
         exit 0
+}
+
+deletion() {
+        userdel -r $1
+        rm -f $OVPN_FOLDER/openvpn-ca/keys/$1.*
+        sed -i "/$1/d" $OVPN_FOLDER/openvpn-ca/keys/index.txt
+        echo -e "${GREEN}User has been deleted from database!${DEFAULT}"
+        exit 0
+}
+# <-- Functions -->
+if [[ -z $avail && -z $index ]]; then
+        useradd $1
 elif [[ -n $avail && -n $avail ]];then
         echo "User with this name already exists!"
-        read -p "Do you really want to replace an existing user? [y/n] " answer
+        read -p "Do you really want to delete an existing user? [y/n] " answer
         case $answer in
-                y | Y | "yes" | "YES" | "Yes") userdel -r $1
-                   rm -f $OVPN_FOLDER/openvpn-ca/keys/$1.*
-                   sed -i "/$1/d" $OVPN_FOLDER/openvpn-ca/keys/index.txt
-                   echo -e "${GREEN}User has been deleted from database!${DEFAULT}"
-                   exit 0
+                y | Y | "yes" | "YES" | "Yes") 
+                   deletion $1
                    ;;
                 *) exit 0
         esac
