@@ -61,7 +61,7 @@ elif [[ -n $avail && -n $avail ]];then
         echo "User with this name already exists!"
         read -p "Do you really want to delete an existing user? [y/n] " answer
         case $answer in
-                y | Y | "yes" | "YES" | "Yes") 
+                [Yy][Ee][Ss]|[Yy][Ee]|[Yy]) 
                    deletion $1
                    ;;
                 *) exit 0
