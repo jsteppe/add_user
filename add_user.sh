@@ -1,7 +1,7 @@
 #!/bin/bash
 # By Yusif Galabayli
 # GLOBAL VARIABLES
-OVPN_FOLDER=/home/yusifg
+OVPN_FOLDER=<your openvpn installation folder>
 GREEN='\e[32m'
 BOLD='\e[1m'
 RED='\e[91m'
